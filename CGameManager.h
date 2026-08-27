@@ -115,6 +115,7 @@ class CGameManager
 	NPC* emily = nullptr; //adeded this
 	NPC* sarah = nullptr; //adeded this
 	NPC* michael = nullptr; //added this
+	NPC* harvey = nullptr;
 	int nB4_1_id = -1; //for batista event stuff
 	int nB5_1_candle_id;
 	int nB5_1_glass_id;
@@ -141,6 +142,9 @@ public:
 	void checkForAllEvidence(CObstacle* oPtr);
 	void checkForEvidence(CObstacle* oPtr, CObstacle*& ptr, CEvidence::Evidence e);
 	CGameManager* GetEvidencePtr();
+	void EmilyEndingDialogue();
+	void MichaelEndingDialogue();
+	void SarahEndingDialogue();
 
 
 	CGameManager();
