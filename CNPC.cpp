@@ -149,6 +149,9 @@ void NPC::AddNodeOption(int nodeIndex, int eventState, int Go_To_Node_Index, str
 		DialougeTree[nodeIndex].options.push_back({ text, Go_To_Node_Index, eventState });
 	}
 }
+string NPC::GetDescription(){
+	return description;
+}
 
 string NPC::getName() {
 	return name;

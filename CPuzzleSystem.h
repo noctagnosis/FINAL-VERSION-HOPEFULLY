@@ -7,6 +7,7 @@ class PuzzleSystem
 	string puzzleType;
 	bool puzzleCompleted;
 	bool puzzleRunning;
+	bool activateDialogue;
 	CEvidence evidence;
 	string userAnswer;
 	int numberPosition;
@@ -20,6 +21,9 @@ public:
 	void enterNum(int input);
 	bool getBool();
 	void setBool(bool state);
+	bool getCompletion();
+	bool getActivateDialogue();
+	void setActivateDialogue(bool activation);
 	void setPuzzle(string puzzle);
 
 	PuzzleSystem();
