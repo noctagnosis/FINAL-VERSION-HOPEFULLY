@@ -76,79 +76,18 @@ void CMap::RenderMap() {
     for (int i = 0; i < MAP_SIZE_Y; i++) {
         cout << "|";
         for (int j = 0; j < MAP_SIZE_X; j++) {
-            //std::string temp = " ";
-            //temp = temp + MAP[i]j];
-
-            switch (MAP[i][j]) {
-            case 'd':
-                cout << " D";
-                break;
-            case '=':
-                cout << "==";
-                break;
-            case '#':
-                cout << " #";
-                break;
-            case 'L':
-                cout << " L";
-                break;
-            case '/':
-                cout << " /";
-                break;
-            case '+':
-                cout << " +";
-                break;
-            case '*':
-                cout << " *";
-                break;
-            case '@':
-                cout << " @";
-                break;
-            case 'X':
-                cout << " X";
-                break;
-            case 'O':
-                cout << " O";
-                break;
-            case 'H':
-                cout << " H";
-                break;
-            case 'a':
-                cout << " a";
-                break;
-            case '|':
-                cout << " |";
-                break;
-            case 'P':
-                cout << " P";
-                break;
-            case 'S':
-                cout << " S";
-                break;
-            case 'E':
-                cout << " E";
-                break;
-            case 'M':
-                cout << " M";
-                break;
-            case 'J':
-                cout << " J"; //added johnathan
-                break;
-            case 'F':
-                cout << " F"; //added Forensics
-                break;
-            case 'B':
-                cout << " B";
-                break;
-            case 'T':
-                cout << " T";
-                break;
-            case '$':
-                cout << " $";
-                break;
-            default:
+            string temp = " ";
+            if (MAP[i][j] == '=') {
+                temp = "=";
+                temp = temp + MAP[i][j];
+                cout << temp;
+            }
+            else if (MAP[i][j] == '\0') {
                 cout << "  ";
-                break;
+            }
+            else {
+                temp = temp + MAP[i][j];
+                cout << temp;
             }
         }
         cout << "|" << endl;
