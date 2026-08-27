@@ -1624,16 +1624,29 @@ void CGameManager::changeMaps(char input)
         }
         else if (ObstacleInteract != nullptr) {
             bool isEvidenceTile = false;
+            bool puzzleActivated = false;
             int evidenceIndex = -1;
-            for (int i = 0; i < MAX_EVIDENCE; i++) { // change this part too and added evidence index
+            for (int i = 0; i < MAX_EVIDENCE; i++) {
                 if (ObstacleInteract == Evidenceptr[i]) {
                     if (i == 9) {
-                        puzzleSystem.setBool(true);
-                        puzzleSystem.setPuzzle("lock");
+                        if (puzzleSystem.getCompletion()) {
+                            isEvidenceTile = true;
+                        }
+                        else {
+                            puzzleSystem.setBool(true);
+                            puzzleSystem.setPuzzle("lock");
+                            puzzleActivated = true;
+
+                            // NEW: override with custom dialogue instead of the obstacle's default line
+                            displayDialogue("Narrator", "A peculiar safe catches your eye... looks like it needs solving.");
+                            puzzleSystem.renderPuzzles();
+                        }
                     }
-                    isEvidenceTile = true;
-                    evidenceIndex = i;
-                    break;
+                    else {
+                        isEvidenceTile = true;
+                        evidenceIndex = i;
+                        break;
+                    }
                 }
             }
 
@@ -1678,7 +1691,7 @@ void CGameManager::changeMaps(char input)
                 }
 
             }
-            else {
+            else if (!puzzleActivated) {
                 CItem* foundItem = ObstacleInteract->GetItemPtr();
                 if (foundItem != nullptr) {
                     inventory->addToInventory(foundItem->GetItemName(), foundItem->GetId(), foundItem->GetInventoryDialogue());
@@ -1828,7 +1841,19 @@ void CGameManager::RunGame() {
 
         else if (puzzleSystem.getBool() == true) {
             puzzleSystem.inputNum(input);
-            puzzleSystem.renderPuzzles();
+            if (input == 'b') {
+                puzzleSystem.setBool(false);
+                map[currentMap].RenderMap();
+            }
+            else {
+                puzzleSystem.renderPuzzles();
+                if (puzzleSystem.getActivateDialogue()) {
+                    map[currentMap].RenderMap();
+                    displayDialogue("Narrator", "The safe has been unlocked!");
+                    puzzleSystem.setActivateDialogue(false);
+
+                }
+            }
         }
 
         else if (inventory->getInventoryState() == false) {
