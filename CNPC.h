@@ -8,6 +8,8 @@
 #include <conio.h>
 #include <vector>
 #include <unordered_map>
+#include <map>
+#include <set>
 using namespace std;
 
 class NPC :
@@ -45,6 +47,11 @@ class NPC :
 		int incorrectNode;
 	};
 	unordered_map<int, IsEvidenceCorrect> evidenceRequests;
+	int path;
+	int storeEvidenceId[4];
+	int evidenceCounter = 0;
+	bool isEvidenceValid;
+	int numOfWrongEvidence;
 
 public:
 	enum People
@@ -75,6 +82,11 @@ public:
 	int getCurrentNode();//for items
 	int getCurrentEvent();//for items
 	int getLastRemovedEvidenceID();
+	void setIsEvidenceValid(bool input);
+	bool getIsEvidenceValid();
+	int getPath();
+	int getNumOfWrongEvidence();
+	void setEvidenceCounter(int reset);
 
 
 	void ResetDialogueTree();
@@ -91,6 +103,7 @@ public:
 	bool GetisPresentOpen();
 	string GetDescription();
 	static const int PRESENT_EVIDENCE = -2;
+	int checkEvidence(int evidenceCounter, int currentNode, const set<int>& evidenceInput);
 
 	void SetEvidenceRequest(int nodeIndex, int expectedItemID, int correctNode, int incorrectNode);
 	void SetEventStartNode(int eventState, int nodeIndex); //added this

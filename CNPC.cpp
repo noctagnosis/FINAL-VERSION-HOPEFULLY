@@ -153,6 +153,29 @@ string NPC::GetDescription(){
 	return description;
 }
 
+int NPC::checkEvidence(int evidenceCounter, int currentNode, const set<int>& evidenceInput) {
+	int NumOFIncorrect = 0;
+	static const map<int, set<int>> evidenceSet = {
+		{3, {3010, 3011}},
+		{4, {3008, 3009}},
+		{5, {3001, 3005, 3006, 3007}}
+	};
+	auto evidenceRequired = evidenceSet.at(currentNode);
+	if (evidenceCounter == static_cast<int>(evidenceRequired.size()) && evidenceInput == evidenceRequired) {
+		setIsEvidenceValid(true);
+		path = currentNode;
+	}
+	else {
+		for (int requiredID : evidenceRequired) {
+			if (evidenceInput.find(requiredID) == evidenceInput.end()) {
+				NumOFIncorrect++;
+			}
+		}
+		setIsEvidenceValid(false);
+		return NumOFIncorrect;
+	}
+}
+
 string NPC::getName() {
 	return name;
 }
@@ -279,12 +302,50 @@ void NPC::dialougesystem(CMap* map, inventorySystem* inventory) {
 				 
 				if (it != evidenceRequests.end()) { //change and added these
 					if (evidenceCorrect && matchedIndex >= 0 && matchedIndex < (int)it->second.CorrectNode.size()) {
+						int whichNPC = currentNode;
 						currentNode = it->second.CorrectNode[matchedIndex];
 						if (person == Forensics) {
 							lastRemovedEvidenceID = expectedIDs[matchedIndex];
 							inventory->removeFromInventory(PresentPosition);
 						}
+						else if (person == Harvey_Denn) {
+							int id;
+							storeEvidenceId[evidenceCounter] = id = inventory->GetInventoryID(PresentPosition);
+							evidenceCounter++;
+
+							if (evidenceCounter == 2) {
+								if (whichNPC == 3) {
+									int EviID1 = storeEvidenceId[0];
+									int EviID2 = storeEvidenceId[1];
+									set<int> givenEvidence = { EviID1, EviID2 };
+									numOfWrongEvidence = checkEvidence(2, 3, givenEvidence);
+									talking = false;
+								}
+								else if (whichNPC == 5) {
+									int EviID1 = storeEvidenceId[0];
+									int EviID2 = storeEvidenceId[1];
+									set<int> givenEvidence = { EviID1, EviID2 };
+									numOfWrongEvidence = checkEvidence(2, 5, givenEvidence);
+									talking = false;
+
+								}
+							}
+
+							else if (evidenceCounter == 4) {
+								if (whichNPC == 4) {
+									int EviID1 = storeEvidenceId[0];
+									int EviID2 = storeEvidenceId[1];
+									int EviID3 = storeEvidenceId[2];
+									int EviID4 = storeEvidenceId[3];
+									set<int> givenEvidence = { EviID1, EviID2, EviID3, EviID4 };
+									numOfWrongEvidence = checkEvidence(4, 4, givenEvidence);
+									talking = false;
+								}
+							}
+						}
+
 					}
+
 					else {
 						currentNode = it->second.incorrectNode;
 					}
@@ -306,6 +367,7 @@ void NPC::dialougesystem(CMap* map, inventorySystem* inventory) {
 		}
 	}
 }
+
 void NPC::Addeventflag() {
 	Eventstate++;
 }
@@ -388,6 +450,31 @@ bool NPC::GetisPresentOpen() {
 
 int NPC::getLastRemovedEvidenceID() {
 	return lastRemovedEvidenceID;
+}
+
+void NPC::setIsEvidenceValid(bool input)
+{
+	isEvidenceValid = input;
+}
+
+bool NPC::getIsEvidenceValid()
+{
+	return isEvidenceValid;
+}
+
+int NPC::getPath()
+{
+	return path;
+}
+
+int NPC::getNumOfWrongEvidence()
+{
+	return numOfWrongEvidence;
+}
+
+void NPC::setEvidenceCounter(int reset)
+{
+	evidenceCounter = reset;
 }
 
 NPC::NPC() {
