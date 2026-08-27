@@ -35,8 +35,6 @@ void CcaseFileSystem::changeFiles(int input) {
 		}
 		break;
 	}
-
-	
 }
 
 void CcaseFileSystem::addDocument()
@@ -159,7 +157,7 @@ void CcaseFileSystem::renderSuspectFiles()
 		cout << discoveredSuspect[currentSuspectFiles].getName() << endl;
 		cout << "Age: " << discoveredSuspect[currentSuspectFiles].getAge() << endl;
 		cout << "Occupation: " << discoveredSuspect[currentSuspectFiles].getOccupation() << endl;
-		//cout << "Description: " << endl;
+		cout << "Description: " << discoveredSuspect[currentSuspectFiles].GetDescription() << endl;
 		cout << "#=============================#";
 	}
 }
@@ -203,17 +201,6 @@ void CcaseFileSystem::showFiles(char input) {
 bool CcaseFileSystem::getCFSState() {
 	return isCFSOpen;
 }
-
-//void CcaseFileSystem::addNotes() {
-//	CUI::GetInstance().Clear();
-//	string notesText;
-//	cout << "What's on your mind, Mr Black?: ";
-//	getline(cin, notesText);
-//	notes[currentSuspectFiles][currentNotes[currentSuspectFiles]] = notesText;
-//	currentNotes[currentSuspectFiles]++;
-//	renderSuspectFiles();
-//	
-//}
 
 CcaseFileSystem::CcaseFileSystem() {
 	addDocument();

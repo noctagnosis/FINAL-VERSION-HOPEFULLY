@@ -517,128 +517,122 @@ void CGameManager::SetMaps() {
      sarah->AddNodeOption(nS4_1, 3, -1, "nothing");
 
      sarah->SetEventStartNode(3, nS4_1);
-
-     /*--------------------------------------------------------------------------------------------------------------------------------------*/
-     /*---- Mr Michael Turner -----*/
-     /* Event 1 (first convo) */
+    /*---- Mr Michael Turner -----*/
+/* Event 0 (first convo) */
      michael = AddNPC(5, NPC::Michael_Turner, 10, 8);
 
+     int nM0_1 = michael->AddDialougeNode("Hey...");
+     int nM0_2 = michael->AddDialougeNode("Yes, I am. W-Well I would say i'm more of the founder and he is the Co Founder.");
+     int nM0_3 = michael->AddDialougeNode("Claim? CLAIM? It's a fact, Detective. The maid saw me leave, ask her yourself.");
+     int nM0_4 = michael->AddDialougeNode("Michael points to the direction of the kitchen, where the maid is.", narrator->getName());
+
+     michael->AddNodeOption(nM0_1, 0, nM0_2, "You are Mr Turner right? You're the business partner of Mr Smith?");
+     michael->AddNodeOption(nM0_1, 0, -1, "Never mind");
+
+     michael->AddNodeOption(nM0_2, 0, nM0_3, "Right... It says here, you claim you left the Smith mansion at 16:15pm. Correct?");
+     michael->AddNodeOption(nM0_3, 0, nM0_4, "...");
+     michael->AddNodeOption(nM0_4, 0, -1, "... Ok, we will.");
+
+     /* Event 1 (second convo - more detailed) */
      int nM1_1 = michael->AddDialougeNode("Hey...");
      int nM1_2 = michael->AddDialougeNode("Yes, I am. W-Well I would say i'm more of the founder and he is the Co Founder.");
      int nM1_3 = michael->AddDialougeNode("Claim? CLAIM? It's a fact, Detective. The maid saw me leave, ask her yourself.");
      int nM1_4 = michael->AddDialougeNode("Michael points to the direction of the kitchen, where the maid is.", narrator->getName());
+     int nM1_5 = michael->AddDialougeNode("Turner's jaw loosens slightly, though his hand doesn't stop turning the watch", narrator->getName());
+     int nM1_6 = michael->AddDialougeNode("...Right. Of course.");
+     int nM1_7 = michael->AddDialougeNode("We were talking about the business, The consulting firm. I proposed something");
+     int nM1_8 = michael->AddDialougeNode("a way to cover our capital shortfall without waiting on a slow investor pipeline.");
+     int nM1_9 = michael->AddDialougeNode("...Restructuring some of the client funds. Temporarily. Just to bridge the gap until new capital came in.");
+     int nM1_10 = michael->AddDialougeNode("It was temporary...but, Jonathan didn't see it that way. He refused.");
+     int nM1_11 = michael->AddDialougeNode("Said it crossed a line he wasn't willing to cross, no matter how bad things got.");
+     int nM1_12 = michael->AddDialougeNode("We argued. Loudly, probably, I won't pretend otherwise. Then I left.");
+     int nM1_13 = michael->AddDialougeNode("About 16:15. Like i said, the maid saw me out.");
 
-     michael->AddNodeOption(nM1_1, 0, nM1_2, "You are Mr Turner right? You're the business partner of Mr Smith?");
-     michael->AddNodeOption(nM1_1, 0, -1, "Never mind");
+     michael->AddNodeOption(nM1_1, 1, nM1_2, "You are Mr Turner right? You're the business partner of Mr Smith?");
+     michael->AddNodeOption(nM1_1, 1, -1, "Never mind");
+     michael->AddNodeOption(nM1_2, 1, nM1_3, "Right... It says here, you claim you left the Smith mansion at 16:15pm. Correct?");
+     michael->AddNodeOption(nM1_3, 1, nM1_4, "...");
+     michael->AddNodeOption(nM1_4, 1, nM1_5, "It's not personal, Mr. Turner. We're confirming everyone's timeline");
+     michael->AddNodeOption(nM1_5, 1, nM1_6, "...");
+     michael->AddNodeOption(nM1_6, 1, nM1_7, "...");
+     michael->AddNodeOption(nM1_7, 1, nM1_8, "...");
+     michael->AddNodeOption(nM1_8, 1, nM1_9, "...");
+     michael->AddNodeOption(nM1_9, 1, nM1_10, "That's not restructuring, Mr. Turner. That's moving client money without their knowledge.");
+     michael->AddNodeOption(nM1_10, 1, nM1_11, "...");
+     michael->AddNodeOption(nM1_11, 1, nM1_12, "...");
+     michael->AddNodeOption(nM1_12, 1, nM1_13, "Just to triple check, What time was it?");
+     michael->AddNodeOption(nM1_13, 1, -1, "Thanks Mr Turner");
+     nodeFlags.push_back({ michael, nM1_13, &hasTalkToMichael1 });
 
-     michael->AddNodeOption(nM1_2, 0, nM1_3, "Right... It says here, you claim you left the Smith mansion at 16:15pm. Correct?");
+     michael->SetEventStartNode(1, nM1_1);
 
-     michael->AddNodeOption(nM1_3, 0, nM1_4, "...");
-
-     michael->AddNodeOption(nM1_4, 0, -1, "... Ok, we will.");
-
-     /* Event 2 (first convo) */
-
+     /* Event 2 (Confronting about whiskey glass) */
      int nM2_1 = michael->AddDialougeNode("Hey...");
-     int nM2_2 = michael->AddDialougeNode("Yes, I am. W-Well I would say i'm more of the founder and he is the Co Founder.");
-     int nM2_3 = michael->AddDialougeNode("Claim? CLAIM? It's a fact, Detective. The maid saw me leave, ask her yourself.");
-     int nM2_4 = michael->AddDialougeNode("Michael points to the direction of the kitchen, where the maid is.", narrator->getName());
-     int nM2_5 = michael->AddDialougeNode("Turner's jaw loosens slightly, though his hand doesn't stop turning the watch", narrator->getName());
-     int nM2_6 = michael->AddDialougeNode("...Right. Of course.");
-     int nM2_7 = michael->AddDialougeNode("We were talking about the business,The consulting firm. I proposed something");
-     int nM2_8 = michael->AddDialougeNode("a way to cover our capital shortfall without waiting on a slow investor pipeline.");
-     int nM2_9 = michael->AddDialougeNode("...Restructuring some of the client funds.Temporarily.Just to bridge the gap until new capital came in.");
-     int nM2_10 = michael->AddDialougeNode("It was temporary...but, Jonathan didn't see it that way. He refused."); 
-     int nM2_11 = michael->AddDialougeNode("Said it crossed a line he wasn't willing to cross, no matter how bad things got.");
-     int nM2_12 = michael->AddDialougeNode("We argued. Loudly, probably, I won't pretend otherwise. Then I left.");
-     int nM2_13 = michael->AddDialougeNode("About 16:15. Like i said, the maid saw me out.");
+     int nM2_2 = michael->AddDialougeNode("Turner pauses — just half a second too long.", narrator->getName());
+     int nM2_3 = michael->AddDialougeNode("...Sometimes. Socially. Why?");
+     int nM2_4 = michael->AddDialougeNode("Funny thing is, Jonathan didn't drink. Hated the stuff, according to his wife.", Silas->getName());
+     int nM2_5 = michael->AddDialougeNode("Something flickers across Turner's face, quick, involuntary.", narrator->getName());
+     int nM2_6 = michael->AddDialougeNode("...I didn't know that.");
+     int nM2_7 = michael->AddDialougeNode("We talked business, Detective. Not exactly a habit of ours to compare drink orders.");
+     int nM2_8 = michael->AddDialougeNode("I already told you — I don't know anything about a glass.");
 
-     michael->AddNodeOption(nM2_1, 1, nM2_2, "You are Mr Turner right? You're the business partner of Mr Smith?");
-     michael->AddNodeOption(nM2_1, 1, -1, "Never mind");
-     michael->AddNodeOption(nM2_2, 1, nM2_3, "Right... It says here, you claim you left the Smith mansion at 16:15pm. Correct?");
-     michael->AddNodeOption(nM2_3, 1, nM2_4, "...");
-     michael->AddNodeOption(nM2_4, 1, nM2_5, "It's not personal, Mr. Turner. We're confirming everyone's timeline");
-     michael->AddNodeOption(nM2_5, 1, nM2_6, "...");
-     michael->AddNodeOption(nM2_6, 1, nM2_7, "...");
-     michael->AddNodeOption(nM2_7, 1, nM2_8, "...");
-     michael->AddNodeOption(nM2_8, 1, nM2_9, "...");
-     michael->AddNodeOption(nM2_9, 1, nM2_10, "That's not restructuring, Mr. Turner. That's moving client money without their knowledge.");
-     michael->AddNodeOption(nM2_10, 1, nM2_11, "...");
-     michael->AddNodeOption(nM2_11, 1, nM2_12, "...");
-     michael->AddNodeOption(nM2_12, 1, nM2_13, "Just to triple check, What time was it?");
-     michael->AddNodeOption(nM2_13, 1, -1, "Thanks Mr Turner");
-     nodeFlags.push_back({ michael, nM2_13, &hasTalkToMichael1 });
+     /*correct1 - fingerprint on glass*/
+     int nM2_correct1_1 = michael->AddDialougeNode("We had a forensic team run a fingerprint test on it…", Silas->getName());
+     int nM2_correct1_2 = michael->AddDialougeNode("And it matches your fingerprint", Silas->getName());
+     int nM2_correct1_3 = michael->AddDialougeNode("Turner's eyes open wide. For a moment, he says nothing", narrator->getName());
+     int nM2_correct1_4 = michael->AddDialougeNode("...Okay...Okay. I lied. I came back");
+     int nM2_correct1_5 = michael->AddDialougeNode("That night. After I left.");
+     int nM2_correct1_6 = michael->AddDialougeNode("And we talked. It didn't go anywhere. So I left again.");
+     int nM2_correct1_7 = michael->AddDialougeNode("That's it. That's all that happened");
+     int nM2_correct1_8 = michael->AddDialougeNode("Suddenly his eyes lit up, and turn towards Detective Black.", narrator->getName());
+     int nM2_correct1_9 = michael->AddDialougeNode("Wait, as I was leaving, I recall hearing someone walking to the study room at around 17.00 pm");
 
-     michael->SetEventStartNode(1, nM2_1);
+     /*correct2 - glove evidence*/
+     int nM2_correct2_1 = michael->AddDialougeNode("That's from the study. Jonathan kept a pair on the shelf, I think");
+     int nM2_correct2_2 = michael->AddDialougeNode("Never touched it myself.");
+     int nM2_correct2_3 = michael->AddDialougeNode("Not exactly the kind of thing you pick up during a business meeting.");
 
+     /*wrong*/
+     int nM2_wrong = michael->AddDialougeNode("Wha…What does this have to do with me?");
 
-     /* Event 3 (nothing) */
+     michael->AddNodeOption(nM2_1, 2, nM2_2, "One more thing, Mr. Turner. Do you drink whiskey?");
+     michael->AddNodeOption(nM2_2, 2, nM2_3, "...");
+     michael->AddNodeOption(nM2_3, 2, nM2_4, "Because we found a broken whiskey glass in the study.");
+     michael->AddNodeOption(nM2_4, 2, nM2_5, "...");
+     michael->AddNodeOption(nM2_5, 2, nM2_6, "...");
+     michael->AddNodeOption(nM2_6, 2, nM2_7, "No? You've been business partners for years, yet you didn't know he doesn't drink whiskey?");
+     michael->AddNodeOption(nM2_7, 2, nM2_8, "Fair enough,...So if he didn't drink, and you say you left before anyone else came by...");
+     michael->AddNodeOption(nM2_8, 2, NPC::PRESENT_EVIDENCE, "[Present Evidence?]");
+     michael->SetEvidenceRequest(nM2_8, 3005, nM2_correct1_1, nM2_wrong); // Broken Whiskey Glass
+     michael->SetEvidenceRequest(nM2_8, 3006, nM2_correct2_1, nM2_wrong); // Suspicious Glove
+
+     /*correct1*/
+     michael->AddNodeOption(nM2_correct1_1, 2, nM2_correct1_2, "...");
+     michael->AddNodeOption(nM2_correct1_2, 2, nM2_correct1_3, "...");
+     michael->AddNodeOption(nM2_correct1_3, 2, nM2_correct1_4, "...");
+     michael->AddNodeOption(nM2_correct1_4, 2, nM2_correct1_5, "...");
+     michael->AddNodeOption(nM2_correct1_5, 2, nM2_correct1_6, "And?");
+     michael->AddNodeOption(nM2_correct1_6, 2, nM2_correct1_7, "...");
+     michael->AddNodeOption(nM2_correct1_7, 2, nM2_correct1_8, "...");
+     michael->AddNodeOption(nM2_correct1_8, 2, nM2_correct1_9, "...");
+     michael->AddNodeOption(nM2_correct1_9, 2, -1, "*nods head");
+     nodeFlags.push_back({ michael, nM2_correct1_9, &hasTalkToMichael3 });
+
+     /*correct2 - glove path (goes back to nM2_8) */
+     michael->AddNodeOption(nM2_correct2_1, 2, nM2_correct2_2, "...");
+     michael->AddNodeOption(nM2_correct2_2, 2, nM2_correct2_3, "...");
+     michael->AddNodeOption(nM2_correct2_3, 2, nM2_8, "*nods head");
+
+     /*wrong*/
+     michael->AddNodeOption(nM2_wrong, 2, nM2_8, "*nods head");
+
+     michael->SetEventStartNode(2, nM2_1);
+
+     /* Event 3 (default from then on) */
      int nM3_1 = michael->AddDialougeNode("Hey...");
-     michael->AddNodeOption(nM3_1, 2, -1, "Hey...");
+     michael->AddNodeOption(nM3_1, 3, -1, "Hey...");
 
-     michael->SetEventStartNode(2, nM3_1);
-
-     /* Event 4 (Confronting) */
-     int nM4_1 = michael->AddDialougeNode("Hey...");
-     int nM4_2 = michael->AddDialougeNode("Turner pauses — just half a second too long.", narrator->getName());
-     int nM4_3 = michael->AddDialougeNode("...Sometimes. Socially. Why?");
-     int nM4_4 = michael->AddDialougeNode("Funny thing is, Jonathan didn't drink. Hated the stuff, according to his wife.", Silas->getName());
-     int nM4_5 = michael->AddDialougeNode("Something flickers across Turner's face, quick, involuntary.", narrator->getName());
-     int nM4_6 = michael->AddDialougeNode("...I didn't know that.");
-     int nM4_7 = michael->AddDialougeNode("We talked business, Detective. Not exactly a habit of ours to compare drink orders.");
-     int nM4_8 = michael->AddDialougeNode("I already told you — I don't know anything about a glass.");
-
-     /*correct1*/
-     int nM4_1_correct1 = michael->AddDialougeNode("We had a forensic team run a fingerprint test on it…", Silas->getName());
-     int nM4_1_correct2 = michael->AddDialougeNode("And it matches your fingerprint", Silas->getName());
-     int nM4_1_correct3 = michael->AddDialougeNode("Turner's eyes open wide. For a moment, he says nothing", narrator->getName());
-     int nM4_1_correct4 = michael->AddDialougeNode("...Okay...Okay. I lied. I came back");
-     int nM4_1_correct5 = michael->AddDialougeNode("That night. After I left.");
-     int nM4_1_correct6 = michael->AddDialougeNode("And we talked. It didn't go anywhere. So I left again.");
-     int nM4_1_correct7 = michael->AddDialougeNode("That's it. That's all that happened");
-     int nM4_1_correct8 = michael->AddDialougeNode("Suddenly his eyes lit up, and turn towards Detective Black.", narrator->getName());
-     int nM4_1_correct9 = michael->AddDialougeNode("Wait, as I was leaving, I recall hearing someone walking to the study room at around 17.00 pm");
-
-     /*correct2*/
-     int nM4_2_correct1 = michael->AddDialougeNode("That's from the study. Jonathan kept a pair on the shelf, I think");
-     int nM4_2_correct2 = michael->AddDialougeNode("Never touched it myself.");
-     int nM4_2_correct3 = michael->AddDialougeNode("Not exactly the kind of thing you pick up during a business meeting.");
-
-     /*wrong*/
-     int nM4_wrong = michael->AddDialougeNode("Wha…What does this have to do with me?");
-
-     michael->AddNodeOption(nM4_1, 3, nM4_2, "One more thing, Mr. Turner. Do you drink whiskey?");
-     michael->AddNodeOption(nM4_2, 3, nM4_3, "...");
-     michael->AddNodeOption(nM4_3, 3, nM4_4, "Because we found a broken whiskey glass in the study.");
-     michael->AddNodeOption(nM4_4, 3, nM4_5, "...");
-     michael->AddNodeOption(nM4_5, 3, nM4_6, "...");
-     michael->AddNodeOption(nM4_6, 3, nM4_7, "No? You've been business partners for years, yet you didnt know he doesn't drink whiskey?");
-     michael->AddNodeOption(nM4_7, 3, nM4_8, "Fair enough,...So if he didn't drink, and you say you left before anyone else came by...");
-     michael->AddNodeOption(nM4_8, 3, NPC::PRESENT_EVIDENCE, "[Present Evidence?]");
-     michael->SetEvidenceRequest(nM4_8, 3005, nM4_1_correct1, nM4_wrong);
-     michael->SetEvidenceRequest(nM4_8, 3006, nM4_2_correct1, nM4_wrong);
-
-     /*correct1*/
-     michael->AddNodeOption(nM4_1_correct1, 3, nM4_1_correct2, "...");
-     michael->AddNodeOption(nM4_1_correct2, 3, nM4_1_correct3, "...");
-     michael->AddNodeOption(nM4_1_correct3, 3, nM4_1_correct4, "...");
-     michael->AddNodeOption(nM4_1_correct4, 3, nM4_1_correct5, "...");
-     michael->AddNodeOption(nM4_1_correct5, 3, nM4_1_correct6, "And?");
-     michael->AddNodeOption(nM4_1_correct6, 3, nM4_1_correct7, "...");
-     michael->AddNodeOption(nM4_1_correct7, 3, nM4_1_correct8, "...");
-     michael->AddNodeOption(nM4_1_correct8, 3, nM4_1_correct9, "...");
-     michael->AddNodeOption(nM4_1_correct9, 3, -1, "*nods head");
-     nodeFlags.push_back({ michael, nM4_1_correct9, &hasTalkToMichael3 });
-
-     /*correct2*/
-     michael->AddNodeOption(nM4_2_correct1, 3, nM4_2_correct2, "...");
-     michael->AddNodeOption(nM4_2_correct2, 3, nM4_2_correct3, "...");
-     michael->AddNodeOption(nM4_2_correct3, 3, nM4_8, "*nods head");
-
-     /*wrong*/
-     michael->AddNodeOption(nM4_wrong, 3, nM4_8, "*nods head");
-
-     michael->SetEventStartNode(3, nM4_1);
+     michael->SetEventStartNode(3, nM3_1);
 
 
 
@@ -966,17 +960,6 @@ void CGameManager::SetMaps() {
        AddObstacle(5, CObstacle::Window, 0, 4, 0)->SetDialogue(0, "A window with a stunning view to the living room sofa...");
        AddObstacle(5, CObstacle::Window, 0, 3, 0)->SetDialogue(0, "A window with a stunning view to the living room sofa...");
 
-       //if (hasTalkToMichael3) {
-       //    mapIntroDialogue[5] = {
-       //        {"Narrator", "Black winces, pressing a hand to his stomach"},
-       //        {"Black", "Ah shucks,Too much coffee just now. Do you know where the toilet is?"},
-       //        {"Silas", "Just around the corner beside the Living room"},
-       //        {"Game", "[Head to the toilet, Black has to take a piss.]"}
-
-       //    };
-       //    takeAPiss = true;
-       //}
-
    }
 
    /*The Mansion study room story ROOM 6*/
@@ -1186,13 +1169,13 @@ void CGameManager::SetMaps() {
        map[12].SetName("Collin Porch");
        for (int y = 0; y < 14; y += 3)//  tree col
        {
-           AddObstacle(11, CObstacle::Tree, 5, y, 0);
+           AddObstacle(12, CObstacle::Tree, 5, y, 0);
        }
        for (int y = 0; y < 6; y++)// top flower bed
        {
            for (int x = 7; x < 19; x++)
            {
-               AddObstacle(11, CObstacle::Flower, x, y, 0);
+               AddObstacle(12, CObstacle::Flower, x, y, 0);
            }
        }
 
@@ -1200,7 +1183,7 @@ void CGameManager::SetMaps() {
        {
            for (int x = 7; x < 19; x++)
            {
-               AddObstacle(11, CObstacle::Flower, x, y, 0);
+               AddObstacle(12, CObstacle::Flower, x, y, 0);
            }
        }
 
@@ -1327,7 +1310,7 @@ void CGameManager::SetMaps() {
     Connect[9] = { 8 };
     Connect[10] = { 0, 1 };
     Connect[11] = { 0, 6 };
-    Connect[12] = { 0, 8 };
+    Connect[12] = { 0, 8, 13 };
     Connect[13] = { 0, 1, 12 };
     Connect[14] = { 1, 2, 3, 4 };
 
@@ -1612,7 +1595,7 @@ void CGameManager::changeMaps(char input)
                 hasTalkToTrisha = false;
             }
             if (hasTalkToMichael1) {
-                michael->Addeventflag();
+                michael->Addeventflag();  // This advances from event 0 to event 1
                 hasTalkToMichael1 = false;
             }
             if (hasTalkToMichael3) {
@@ -1877,6 +1860,7 @@ void CGameManager::RunGame() {
 }
 
 CGameManager::CGameManager() {
+    hasTalkedToMichaelAgain = false;
     currentMap = 0;
     currentUI = 0;
     SetMaps();
